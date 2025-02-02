@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -98,7 +97,7 @@ const App = () => {
         setPersons(persons.filter(person => person.id !== id))
         sendNotification({
           style: 'success',
-          text:`Deleted ${deletedObject.name}`
+          text:`Deleted ${personToDelete.name}`
         })
       })
       .catch(error => {
