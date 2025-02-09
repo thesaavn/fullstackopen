@@ -55,7 +55,7 @@ const App = () => {
             text:`Updated ${returnedObject.name}`
           })
         })
-        .catch(error => {
+        .catch(() => {
           setPersons(persons.filter(person => person.id !== foundPerson.id))
           sendNotification({
             style: 'error',
@@ -78,6 +78,12 @@ const App = () => {
           text:`Added ${newPerson.name}`
         })
       })
+      .catch(error => {
+        sendNotification({
+          style: 'error',
+          text: error.response.data.error
+        })
+      })
   }
 
   const handleNameChange = (event) => setNewName(event.target.value)
@@ -93,14 +99,14 @@ const App = () => {
     const personToDelete = persons.find(person => person.id === id)
     if (confirm(`Delete ${personToDelete.name}?`)){
       personService.remove(id)
-      .then(deletedObject => {
+      .then(() => {
         setPersons(persons.filter(person => person.id !== id))
         sendNotification({
           style: 'success',
           text:`Deleted ${personToDelete.name}`
         })
       })
-      .catch(error => {
+      .catch(() => {
         setPersons(persons.filter(person => person.id !== id))
         sendNotification({
           style: 'error',
